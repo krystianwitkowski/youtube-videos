@@ -6,7 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "server": "nodemon ./server/index.js"
+    "server": "nodemon ./server/index.js",
+    "heroku-prebuild": "npm install",
+    "start": "npm run server"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",

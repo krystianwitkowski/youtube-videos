@@ -24,8 +24,6 @@ app.use('/api/register', register);
 app.use('/api/login', login);
 app.use('/api/credentials', credentials);
 
-const listen = app.listen(process.env.PORT, () => {
-    console.log(`Listening server on: ${process.env.PORT}`)
-});
+const listen = app.listen(process.env.PORT || 5001);
 
 
