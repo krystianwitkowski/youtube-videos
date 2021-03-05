@@ -62,7 +62,7 @@
             fetchRegister(e){
                 const { name, email, password, repeatPassword } = this;
 
-                return fetch('http://localhost:3001/api/register', {
+                return fetch('https://ytubevueapp.herokuapp.com/api/register', {
                     headers: {
                         'Content-Type': 'application/json'
                     },

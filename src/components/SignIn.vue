@@ -63,7 +63,7 @@
             fetchLogin(e){
                 const { email, password } = this;
 
-                return fetch('http://localhost:3001/api/login', {
+                return fetch('https://ytubevueapp.herokuapp.com/api/login', {
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -77,7 +77,7 @@
             fetchCredentials(){
                 const { email, password, credentials } = this;
                 
-                return fetch('http://localhost:3001/api/credentials', {
+                return fetch('https://ytubevueapp.herokuapp.com/api/credentials', {
                     headers: {
                         'Content-Type': 'application/json'
                     },
