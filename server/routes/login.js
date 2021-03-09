@@ -12,19 +12,35 @@ Router.route('/')
     const { email, password, eventType } = req.body
 
     if(email.length === 0 && password.length === 0){
-        return res.status(401).json( { validate: ['The field email cannot be empty', 'The field password cannot be empty']})
+        res.status(401).json({ error: {
+            status: 401,
+            message: 'Thie fields cannot be empty. Please try to complete all fields',
+            data: ['The field email cannot be empty', 'The field password cannot be empty']
+        }})
     }
 
     if(email.length === 0){
-        return res.status(401).json( { validate: ['The field email cannot be empty', '']})
+        res.status(401).json({ error: {
+            status: 401,
+            message: 'The field email cannot be empty. Please try to complete field',
+            data: ['The field email cannot be empty', '']
+        }})
     }
 
     else if(password.length === 0){
-        return res.status(401).json( { validate: ['', 'The field password cannot be empty']})
+        res.status(401).json({ error: {
+            status: 401,
+            message: 'The field password cannot be empty. Please try to complete field',
+            data: ['', 'The field password cannot be empty']
+        }})
     }
 
     else if (validator.validate(email) !== true){
-        return res.status(401).json( { validate: ['The field email is incorrect', ''] })
+        res.status(401).json({ error: {
+            status: 401,
+            message: 'The field email is incorrect. Please check characters like @ or .',
+            data: ['The field email is incorrect', '']
+        }})
     }
 
     else {
@@ -44,17 +60,25 @@ Router.route('/')
                     const accessToken = jwt.sign({ id: isUser.data().id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
                     const refreshToken = jwt.sign({ id: isUser.data().id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1h' })
     
-                    return res.status(200).json({ message: 'Authentication success', tokens: { accessToken, refreshToken }})
+                    return res.status(200).json({ tokens: { accessToken, refreshToken }})
                 }
             }
 
             if(eventType === 'keyup'){
-                return res.status(401).json({ validate: ['', ''], message: 'Authentication failed' })
+                res.status(401).json({ error: {
+                    status: 401,
+                    message: 'To login user you have to trigger click event',
+                    data: ['', '']
+                }})
             }
         }
 
         else {
-            return res.status(401).json({ validate: ['', ''], message: 'Authentication failed' })
+            res.status(401).json({ error: {
+                status: 401,
+                message: 'To login user you have to trigger click event',
+                data: ['', '']
+            }})
         }
             
     }

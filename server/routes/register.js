@@ -15,23 +15,43 @@ Router.route('/')
     const lenUserName = 4;
 
     if(name.length === 0 && email.length === 0 && password.length === 0 && repeatPassword.length === 0){
-        return res.status(401).json({ validate: ['The field name cannot be empty', 'The field email cannot be empty', 'The field password cannot be empty', 'The field repeat password cannot be empty'] })
+        res.status(400).json({ error: {
+            status: 400,
+            message: 'The fields cannot be empty. Please try to complete all fields',
+            data: ['The field name cannot be empty', 'The field email cannot be empty', 'The field password cannot be empty', 'The field repeat password cannot be empty']
+        }})
     }
 
     else if(name.length < lenUserName) {
-        return res.status(401).json({ validate: ['The field name cannot be less than 4 characters', '', '', ''] })
+        res.status(400).json({ error: {
+            status: 400,
+            message: 'The field name cannot be less than 4 characters. Please try to complete more than 4 signs',
+            data: ['The field name cannot be less than 4 characters', '', '', '']
+        }})
     }
 
     else if(validator.validate(email) !== true) {
-        return res.status(401).json({ validate: ['', 'The field email is incorrect', '', ''] })
+        res.status(400).json({ error: {
+            status: 400,
+            message: 'The field email is incorrect. Please check this field to see if it has signs like @ or .',
+            data: ['', 'The field email is incorrect', '', '']
+        }})
     }
 
     else if(password.length === 0 && password.length === 0) {
-        return res.status(401).json({ validate: ['', '', 'The field password cannot be empty', 'The field repeat password cannot be empty'] })
+        res.status(400).json({ error: {
+            status: 400,
+            message: 'The fields password are not the same. Please check this fields to see if it have the same characters.',
+            data: ['', '', 'The field password cannot be empty', 'The field repeat password cannot be empty']
+        }})
     }
 
     else if(password !== repeatPassword) {
-        return res.status(401).json({ validate: ['', '', 'The field passwords must be the same', 'The field passwords must be the same'] })
+        res.status(400).json({ error: {
+            status: 400,
+            message: 'The fields password are not the same. Please check this fields to see if it have the same characters.',
+            data: ['', '', 'The field passwords must be the same', 'The field passwords must be the same']
+        }})
     }
     
 
@@ -64,16 +84,24 @@ Router.route('/')
                 
                 userID++;
 
-                return res.status(201).json({ message: 'User was created', validate:['','','','Your account has been created'], register: true })
+                res.status(201).json({ data: { ...data }});
             }
 
             else if(eventType === 'keydown' || eventType === 'keyup'){
-                return res.status(200).json({ validate: true })
+                res.status(400).json({ error: {
+                    status: 400,
+                    message: 'To register user you have to trigger click event',
+                    data: ['', '', '', '']
+                }})
             }
         }
 
         else {
-            return res.status(401).json({ validate: ['','','','Such user already exists'] })
+            res.status(400).json({ error: {
+                status: 400,
+                message: 'Such user already exists. You have to change fields.',
+                data: ['','','','Such user already exists']
+            }})
         }
 
     }

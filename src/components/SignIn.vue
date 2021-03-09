@@ -41,14 +41,14 @@
             async getLogin(e){
                 try {
                     const login = await this.fetchLogin(e);
-                    const data = await login.json();
+                    const body = await login.json();
                     
-                    if(data.validate){
-                        this.validate = data.validate
+                    if(body.error.data){
+                        this.validate = body.error.data;
                     }
 
-                    if(data.tokens){
-                        localStorage.setItem('tokens', JSON.stringify(data.tokens))
+                    if(body.tokens){
+                        localStorage.setItem('tokens', JSON.stringify(body.tokens))
 
                         await this.fetchCredentials();
 

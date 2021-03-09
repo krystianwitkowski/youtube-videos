@@ -42,17 +42,16 @@
             async getRegister(e){
                 try {
                     const register = await this.fetchRegister(e);
-                    const data = await register.json();
+                    const body = await register.json();
 
-                    this.validate = data.validate
+                    this.validate = body.error.data
 
-                    if(data.register){
+                    if(body.data){
                         this.name = '';
                         this.email = '';
                         this.password = '';
                         this.repeatPassword = '';
                     }
-
                     
                 } catch {
                     console.log('catch errors')
