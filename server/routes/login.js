@@ -60,7 +60,7 @@ Router.route('/')
                     const accessToken = jwt.sign({ id: isUser.data().id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
                     const refreshToken = jwt.sign({ id: isUser.data().id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1h' })
     
-                    return res.status(200).json({ tokens: { accessToken, refreshToken }})
+                    return res.status(200).json({ tokens: { accessToken, refreshToken }, auth: true })
                 }
             }
 

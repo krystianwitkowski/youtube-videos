@@ -18,7 +18,8 @@ const routes =  [
       component: Dashboard,
       beforeEnter: async (to, from, next) => {
         const tokens = JSON.parse(localStorage.getItem('tokens'));
-
+        
+        console.log(tokens);
         if(tokens){
           next();
         }

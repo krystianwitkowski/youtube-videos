@@ -39,24 +39,19 @@
         },
         methods: {
             async getLogin(e){
-                try {
-                    const login = await this.fetchLogin(e);
-                    const body = await login.json();
-                    
-                    if(body.error.data){
-                        this.validate = body.error.data;
-                    }
+                const login = await this.fetchLogin(e);
+                const body = await login.json();
 
-                    if(body.tokens){
-                        localStorage.setItem('tokens', JSON.stringify(body.tokens))
+                if(body.auth){
+                    localStorage.setItem('tokens', JSON.stringify(body.tokens))
 
-                        await this.fetchCredentials();
+                    await this.fetchCredentials();
 
-                        this.$router.push('/dashboard')
-                    }
+                    this.$router.push('/dashboard')
+                }
 
-                } catch {
-                    console.log('catch errors')
+                else {
+                    this.validate = body.error.data;
                 }
     
             },
